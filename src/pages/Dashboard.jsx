@@ -154,14 +154,15 @@ const Dashboard = () => {
       </div>
 
       {/* ══ KPI ROW ════════════════════════════════════════════════════════ */}
-      <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: '16px' }}>
+      <div className="row g-3 mb-4">
         {[
           { label: 'Total Enquiries', value: metrics.total, icon: Users, color: 'var(--color-primary)', bg: 'bg-primary-light', spark: [3,5,4,7,6,8,metrics.total||8], trend: '+12%', up: true },
           { label: 'Active Pipeline', value: metrics.active, icon: Activity, color: 'var(--color-info)', bg: 'bg-info-light', spark: [2,4,3,5,4,6,metrics.active||6], trend: '+5%', up: true },
           { label: 'Won Deals', value: metrics.won, icon: Star, color: 'var(--color-success)', bg: 'bg-success-light', spark: [1,2,1,3,2,3,metrics.won||3], trend: '+15%', up: true },
           { label: 'Follow-ups Due', value: metrics.followUps, icon: Calendar, color: 'var(--color-warning)', bg: 'bg-warning-light', spark: [5,7,6,8,7,9,metrics.followUps||9], trend: 'Urgent', up: false, urgent: true },
         ].map((card, i) => (
-          <div key={i} className="card" style={{
+          <div key={i} className="col-6 col-lg-3">
+            <div className="card h-100" style={{
             padding: '20px', position: 'relative', overflow: 'hidden',
             border: card.urgent ? `1px solid color-mix(in srgb, ${card.color} 30%, transparent)` : '1px solid var(--border-subtle)',
             cursor: 'pointer', transition: 'all 0.25s ease',
@@ -185,21 +186,21 @@ const Dashboard = () => {
               {card.up ? <TrendingUp size={10} /> : <TrendingDown size={10} />}
               {card.trend}
             </div>
+            </div>
           </div>
         ))}
       </div>
 
       {/* ══ MAIN BODY: Charts left, Sidebar right ══════════════════════════ */}
-      <div style={{ display: 'grid', gridTemplateColumns: '1fr 340px', gap: '16px', alignItems: 'start' }}>
-
+      <div className="row g-3">
         {/* LEFT: Charts + Table */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
-
+        <div className="col-12 col-xl-8 d-flex flex-column gap-3">
           {/* Charts Row */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '16px' }}>
+          <div className="row g-3">
 
             {/* Status Chart */}
-            <div className="card" style={{ padding: '22px' }}>
+            <div className="col-12 col-md-6">
+              <div className="card h-100" style={{ padding: '22px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-primary)', boxShadow: '0 0 8px var(--color-primary)' }} />
@@ -229,10 +230,12 @@ const Dashboard = () => {
                   </div>
                 );
               })}
+              </div>
             </div>
 
             {/* Source Chart */}
-            <div className="card" style={{ padding: '22px' }}>
+            <div className="col-12 col-md-6">
+              <div className="card h-100" style={{ padding: '22px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
                   <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)' }} />
@@ -260,6 +263,7 @@ const Dashboard = () => {
                   </div>
                 );
               })}
+              </div>
             </div>
           </div>
 
@@ -306,8 +310,8 @@ const Dashboard = () => {
                 <div key={enq.id}
                   onClick={() => navigate(`/enquiries/${enq.id}`)}
                   style={{
-                    display: 'grid', gridTemplateColumns: '1fr 1fr auto auto',
-                    alignItems: 'center', gap: '12px',
+                    display: 'flex', flexWrap: 'wrap',
+                    alignItems: 'center', justifyContent: 'space-between', gap: '12px',
                     padding: '10px 12px', borderRadius: '10px',
                     cursor: 'pointer', transition: 'all 0.15s ease',
                     border: '1px solid transparent',
@@ -315,7 +319,7 @@ const Dashboard = () => {
                   onMouseEnter={e => { e.currentTarget.style.background = 'var(--surface-hover)'; e.currentTarget.style.borderColor = 'var(--border-subtle)'; }}
                   onMouseLeave={e => { e.currentTarget.style.background = 'transparent'; e.currentTarget.style.borderColor = 'transparent'; }}
                 >
-                  <div>
+                  <div style={{ flex: '1 1 30%', minWidth: '120px' }}>
                     <div style={{ fontWeight: 600, fontSize: '0.88rem', color: 'var(--text-primary)' }}>{enq.clientName}</div>
                     <div style={{ fontSize: '0.75rem', color: 'var(--text-secondary)', overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{enq.service}</div>
                   </div>
@@ -332,7 +336,7 @@ const Dashboard = () => {
         </div>
 
         {/* RIGHT SIDEBAR */}
-        <div style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+        <div className="col-12 col-xl-4 d-flex flex-column gap-3">
 
           {/* Quick Actions */}
           <div className="card" style={{ padding: '20px' }}>
