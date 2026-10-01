@@ -1127,15 +1127,29 @@ input, select, textarea, button { font-family: inherit; }
   .dashboard-layout { flex-direction: column; }
   .sidebar {
     position: fixed; z-index: 40;
-    height: 100vh; width: 220px;
+    height: 100vh; width: 260px;
     transform: translateX(-100%);
     box-shadow: 4px 0 40px rgba(0,0,0,0.5);
+    transition: transform 0.3s ease;
   }
   .sidebar.open { transform: translateX(0); }
   .mobile-menu-btn { display: flex; align-items: center; justify-content: center; }
   .header { padding: 0 16px; height: 56px; }
+  .header-left, .header-right { gap: 8px; }
+  .header-title { font-size: 0.9rem; }
+  
   .page-content { padding: 16px; }
   .card { padding: 16px; }
+  
   .filter-bar { flex-direction: column; align-items: stretch; }
-  .filter-select { width: 100%; }
+  .filter-select, .search-wrapper { width: 100%; min-width: 0; }
+  
+  .dashboard-header { flex-direction: column; align-items: flex-start; gap: 12px; padding: 16px; }
+  .quick-actions { flex-wrap: wrap; }
+  .dashboard-sections { grid-template-columns: 1fr; }
+  .stat-grid { grid-template-columns: repeat(auto-fit, minmax(140px, 1fr)); }
+  .details-grid { grid-template-columns: 1fr; }
+  .table-container { border-radius: 8px; }
+  
+  .theme-panel { right: 0; width: 240px; }
 }
