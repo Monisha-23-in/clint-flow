@@ -357,17 +357,15 @@ input, select, textarea, button { font-family: inherit; }
 .user-profile:hover {
   background: var(--surface-active);
   border-color: var(--color-primary);
-  box-shadow: 0 0 16px var(--glow-primary);
 }
 
 .avatar {
   width: 32px; height: 32px;
   border-radius: 50%;
-  background: linear-gradient(135deg, var(--color-primary), var(--color-accent));
-  color: #000;
+  background: var(--color-primary);
+  color: #fff;
   display: flex; align-items: center; justify-content: center;
   font-weight: 700; font-size: 0.8rem;
-  box-shadow: 0 0 12px var(--glow-primary);
   flex-shrink: 0;
 }
 
@@ -715,7 +713,7 @@ input, select, textarea, button { font-family: inherit; }
 .mb-16 { margin-bottom: 14px; }
 .mb-8  { margin-bottom: 8px; }
 .mt-24 { margin-top: 20px; }
-.flex-between { display: flex; justify-content: space-between; align-items: center; }
+.flex-between { display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 16px; }
 .gap-12 { gap: 12px; }
 .w-100  { width: 100%; }
 
@@ -947,6 +945,7 @@ input, select, textarea, button { font-family: inherit; }
   .header { padding: 0 16px; height: 56px; }
   .header-left, .header-right { gap: 8px; }
   .header-title { font-size: 0.9rem; }
+  .user-profile span { display: none; }
   
   .page-content { padding: 16px; }
   .card { padding: 16px; }

@@ -98,68 +98,69 @@ const Clients = () => {
           <p className="empty-text">Clients appear here automatically from your enquiries.</p>
         </div>
       ) : (
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(320px, 1fr))', gap: '20px' }}>
+        <div className="row g-3">
           {filtered.map(client => (
-            <div
-              key={client.id}
-              className="card interactive"
-              style={{ padding: '24px', cursor: 'pointer', position: 'relative' }}
-              onClick={() => navigate(`/enquiries/${client.enquiries[0].id}`)}
-            >
-              {/* Header */}
-              <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
-                <div className="avatar" style={{ width: '48px', height: '48px', fontSize: '1.1rem', flexShrink: 0 }}>
-                  {client.clientName.charAt(0).toUpperCase()}
-                </div>
-                <div style={{ flex: 1, minWidth: 0 }}>
-                  <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
-                    {client.clientName}
+            <div key={client.id} className="col-12 col-md-6 col-lg-4">
+              <div
+                className="card interactive h-100"
+                style={{ padding: '24px', cursor: 'pointer', position: 'relative' }}
+                onClick={() => navigate(`/enquiries/${client.enquiries[0].id}`)}
+              >
+                {/* Header */}
+                <div style={{ display: 'flex', alignItems: 'flex-start', gap: '16px', marginBottom: '16px' }}>
+                  <div className="avatar" style={{ width: '48px', height: '48px', fontSize: '1.1rem', flexShrink: 0 }}>
+                    {client.clientName.charAt(0).toUpperCase()}
                   </div>
-                  <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{client.contactPerson}</div>
+                  <div style={{ flex: 1, minWidth: 0 }}>
+                    <div style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)', marginBottom: '2px', whiteSpace: 'nowrap', overflow: 'hidden', textOverflow: 'ellipsis' }}>
+                      {client.clientName}
+                    </div>
+                    <div style={{ fontSize: '0.85rem', color: 'var(--text-secondary)' }}>{client.contactPerson}</div>
+                  </div>
+                  {client.wonCount > 0 && (
+                    <span style={{ background: 'color-mix(in srgb, var(--color-success) 15%, transparent)', color: 'var(--color-success)', border: '1px solid color-mix(in srgb, var(--color-success) 30%, transparent)', borderRadius: '50px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
+                      ★ Won
+                    </span>
+                  )}
                 </div>
-                {client.wonCount > 0 && (
-                  <span style={{ background: 'color-mix(in srgb, var(--color-success) 15%, transparent)', color: 'var(--color-success)', border: '1px solid color-mix(in srgb, var(--color-success) 30%, transparent)', borderRadius: '50px', padding: '2px 10px', fontSize: '0.75rem', fontWeight: 700, flexShrink: 0 }}>
-                    ★ Won
-                  </span>
-                )}
-              </div>
 
-              {/* Contact Info */}
-              <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  <Mail size={13} />
-                  <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{client.email}</span>
-                </div>
-                <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
-                  <Phone size={13} />
-                  <span>{client.phone}</span>
-                </div>
-              </div>
-
-              {/* Footer Stats */}
-              <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
-                <div>
-                  <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Enquiries</div>
-                  <div style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{client.enquiries.length}</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Source</div>
-                  <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>{client.source}</div>
-                </div>
-                <div>
-                  <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Budget</div>
-                  <div style={{ fontWeight: 700, color: 'var(--color-success)', fontSize: '0.9rem' }}>
-                    {client.totalBudget > 0 ? `₹${client.totalBudget.toLocaleString('en-IN')}` : '—'}
+                {/* Contact Info */}
+                <div style={{ display: 'flex', flexDirection: 'column', gap: '8px', marginBottom: '16px' }}>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                    <Mail size={13} />
+                    <span style={{ overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>{client.email}</span>
+                  </div>
+                  <div style={{ display: 'flex', alignItems: 'center', gap: '8px', fontSize: '0.85rem', color: 'var(--text-secondary)' }}>
+                    <Phone size={13} />
+                    <span>{client.phone}</span>
                   </div>
                 </div>
-                <ArrowRight size={16} color="var(--text-secondary)" />
-              </div>
 
-              {/* Latest status badges */}
-              <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px' }}>
-                {[...new Set(client.enquiries.map(e => e.status))].slice(0, 3).map(s => (
-                  <StatusBadge key={s} status={s} />
-                ))}
+                {/* Footer Stats */}
+                <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center', paddingTop: '14px', borderTop: '1px solid var(--border-subtle)' }}>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Enquiries</div>
+                    <div style={{ fontWeight: 700, color: 'var(--color-primary)' }}>{client.enquiries.length}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Source</div>
+                    <div style={{ fontSize: '0.85rem', fontWeight: 600, color: 'var(--text-primary)' }}>{client.source}</div>
+                  </div>
+                  <div>
+                    <div style={{ fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '2px' }}>Budget</div>
+                    <div style={{ fontWeight: 700, color: 'var(--color-success)', fontSize: '0.9rem' }}>
+                      {client.totalBudget > 0 ? `₹${client.totalBudget.toLocaleString('en-IN')}` : '—'}
+                    </div>
+                  </div>
+                  <ArrowRight size={16} color="var(--text-secondary)" />
+                </div>
+
+                {/* Latest status badges */}
+                <div style={{ display: 'flex', gap: '6px', flexWrap: 'wrap', marginTop: '12px' }}>
+                  {[...new Set(client.enquiries.map(e => e.status))].slice(0, 3).map(s => (
+                    <StatusBadge key={s} status={s} />
+                  ))}
+                </div>
               </div>
             </div>
           ))}

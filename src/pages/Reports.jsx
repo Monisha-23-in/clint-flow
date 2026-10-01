@@ -266,16 +266,19 @@ const Reports = () => {
           </div>
 
           {/* Status Donut + Top Deals */}
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-                <PieChart size={18} color="var(--color-primary)" />
-                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Pipeline by Status</h3>
+          <div className="row g-4">
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                  <PieChart size={18} color="var(--color-primary)" />
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Pipeline by Status</h3>
+                </div>
+                <DonutChart segments={metrics.donutSegments} />
               </div>
-              <DonutChart segments={metrics.donutSegments} />
             </div>
 
-            <div className="card" style={{ padding: '28px' }}>
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
               <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
                 <Award size={18} color="var(--color-warning)" />
                 <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Top Deals by Budget</h3>
@@ -302,30 +305,35 @@ const Reports = () => {
               </div>
             </div>
           </div>
+          </div>
         </div>
       )}
 
       {/* ══ PIPELINE TAB ══════════════════════════════════════════════════════ */}
       {activeTab === 'pipeline' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-                <BarChart3 size={18} color="var(--color-primary)" />
-                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Enquiries by Status</h3>
+          <div className="row g-4">
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                  <BarChart3 size={18} color="var(--color-primary)" />
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Enquiries by Status</h3>
+                </div>
+                <BarChart
+                  data={metrics.statusData.map(s => ({ label: s.label, value: s.value }))}
+                  colorVar="var(--color-primary)"
+                />
               </div>
-              <BarChart
-                data={metrics.statusData.map(s => ({ label: s.label, value: s.value }))}
-                colorVar="var(--color-primary)"
-              />
             </div>
 
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-                <PieChart size={18} color="var(--color-accent)" />
-                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Pipeline by Status (Donut)</h3>
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                  <PieChart size={18} color="var(--color-accent)" />
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Pipeline by Status (Donut)</h3>
+                </div>
+                <DonutChart segments={metrics.donutSegments} />
               </div>
-              <DonutChart segments={metrics.donutSegments} />
             </div>
           </div>
 
@@ -462,28 +470,32 @@ const Reports = () => {
       {/* ══ SOURCES TAB ══════════════════════════════════════════════════════ */}
       {activeTab === 'sources' && (
         <div style={{ display: 'flex', flexDirection: 'column', gap: '24px' }}>
-          <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: '24px' }}>
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-                <BarChart3 size={18} color="var(--color-accent)" />
-                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Leads by Source</h3>
+          <div className="row g-4">
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                  <BarChart3 size={18} color="var(--color-accent)" />
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Leads by Source</h3>
+                </div>
+                <BarChart
+                  data={metrics.sourceData.map((s, i) => ({
+                    label: s.label,
+                    value: s.value,
+                    color: metrics.sourceDonut[i]?.color || 'var(--color-primary)',
+                  }))}
+                  colorVar="var(--color-accent)"
+                />
               </div>
-              <BarChart
-                data={metrics.sourceData.map((s, i) => ({
-                  label: s.label,
-                  value: s.value,
-                  color: metrics.sourceDonut[i]?.color || 'var(--color-primary)',
-                }))}
-                colorVar="var(--color-accent)"
-              />
             </div>
 
-            <div className="card" style={{ padding: '28px' }}>
-              <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
-                <PieChart size={18} color="var(--color-info)" />
-                <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Source Distribution</h3>
+            <div className="col-12 col-lg-6">
+              <div className="card h-100" style={{ padding: '28px' }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '24px' }}>
+                  <PieChart size={18} color="var(--color-info)" />
+                  <h3 style={{ fontWeight: 700, fontSize: '1rem', color: 'var(--text-primary)' }}>Source Distribution</h3>
+                </div>
+                <DonutChart segments={metrics.sourceDonut} />
               </div>
-              <DonutChart segments={metrics.sourceDonut} />
             </div>
           </div>
 

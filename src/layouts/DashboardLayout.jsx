@@ -128,18 +128,18 @@ const DashboardLayout = () => {
               { icon: Shield, label: 'Secure', value: 'Active',      color: 'var(--color-primary)',  pct: 100 },
             ].map((s, i) => (
               <div key={i} style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                <s.icon size={11} color={s.color} style={{ flexShrink: 0, filter: `drop-shadow(0 0 3px ${s.color})` }} />
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.65rem', color: 'var(--text-secondary)', width: '40px' }}>{s.label}</span>
+                <s.icon size={11} color={s.color} style={{ flexShrink: 0 }} />
+                <span style={{ fontSize: '0.65rem', color: 'var(--text-secondary)', width: '40px' }}>{s.label}</span>
                 <div style={{ flex: 1, height: '3px', background: 'var(--surface-hover)', borderRadius: '2px', overflow: 'hidden' }}>
-                  <div style={{ height: '100%', width: `${s.pct}%`, background: s.color, boxShadow: `0 0 4px ${s.color}`, borderRadius: '2px' }} />
+                  <div style={{ height: '100%', width: `${s.pct}%`, background: s.color, borderRadius: '2px' }} />
                 </div>
-                <span style={{ fontFamily: "'JetBrains Mono', monospace", fontSize: '0.62rem', color: s.color, width: '36px', textAlign: 'right' }}>{s.value}</span>
+                <span style={{ fontSize: '0.62rem', color: s.color, width: '36px', textAlign: 'right' }}>{s.value}</span>
               </div>
             ))}
           </div>
 
           {/* Clock */}
-          <div style={{ textAlign: 'center', fontFamily: "'JetBrains Mono', monospace", fontSize: '0.72rem', color: 'var(--color-primary)', letterSpacing: '1px', textShadow: '0 0 8px var(--color-primary)' }}>
+          <div style={{ textAlign: 'center', fontSize: '0.75rem', color: 'var(--text-secondary)', letterSpacing: '1px' }}>
             {time.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
           </div>
 

@@ -80,9 +80,10 @@ const CalendarPage = () => {
   if (loading) return <LoadingState />;
 
   return (
-    <div style={{ display: 'grid', gridTemplateColumns: '1fr 320px', gap: '24px', alignItems: 'start' }}>
+    <div className="row g-4 align-items-start">
       {/* ── LEFT: Calendar ── */}
-      <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
+      <div className="col-12 col-xl-8">
+        <div className="card" style={{ padding: '0', overflow: 'hidden' }}>
         {/* Header */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', padding: '20px 24px', borderBottom: '1px solid var(--border-subtle)' }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: '12px' }}>
@@ -192,9 +193,10 @@ const CalendarPage = () => {
           })}
         </div>
       </div>
+      </div>
 
       {/* ── RIGHT PANEL ── */}
-      <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
+      <div className="col-12 col-xl-4 d-flex flex-column gap-4">
 
         {/* Selected Day Events */}
         <div className="card" style={{ padding: '20px' }}>
