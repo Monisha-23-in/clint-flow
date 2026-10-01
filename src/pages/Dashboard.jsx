@@ -36,8 +36,8 @@ const Sparkline = ({ data, color }) => {
   const pts = data.map((v, i) => `${(i / (data.length - 1)) * w},${h - (v / max) * h}`).join(' ');
   return (
     <svg width={w} height={h} style={{ overflow: 'visible' }}>
-      <polyline points={pts} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" style={{ filter: `drop-shadow(0 0 4px ${color})` }} />
-      <circle cx={(1) * w} cy={h - (data[data.length - 1] / max) * h} r="3" fill={color} style={{ filter: `drop-shadow(0 0 4px ${color})` }} />
+      <polyline points={pts} fill="none" stroke={color} strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" />
+      <circle cx={(1) * w} cy={h - (data[data.length - 1] / max) * h} r="3" fill={color} />
     </svg>
   );
 };
@@ -109,39 +109,25 @@ const Dashboard = () => {
     <div style={{ display: 'flex', flexDirection: 'column', gap: '20px' }}>
 
       {/* ══ TOP HERO BANNER ════════════════════════════════════════════════ */}
-      <div style={{
-        position: 'relative', overflow: 'hidden',
-        background: 'linear-gradient(135deg, var(--surface-card) 0%, var(--surface-sidebar) 100%)',
-        border: '1px solid var(--border-subtle)',
-        borderRadius: '20px',
+      <div className="card mb-4" style={{
         padding: '24px 32px',
         display: 'flex', alignItems: 'center', justifyContent: 'space-between',
-        gap: '24px', flexWrap: 'wrap',
+        gap: '24px', flexWrap: 'wrap', border: 'none'
       }}>
-        {/* Animated orbs */}
-        <div style={{ position: 'absolute', top: '-40px', right: '80px', width: '200px', height: '200px', borderRadius: '50%', background: 'radial-gradient(circle, var(--glow-primary) 0%, transparent 70%)', pointerEvents: 'none', animation: 'pulse-orb 4s ease-in-out infinite' }} />
-        <div style={{ position: 'absolute', bottom: '-60px', right: '250px', width: '160px', height: '160px', borderRadius: '50%', background: 'radial-gradient(circle, var(--glow-accent) 0%, transparent 70%)', pointerEvents: 'none', animation: 'pulse-orb 6s ease-in-out infinite reverse' }} />
-
-        <div style={{ position: 'relative', zIndex: 1 }}>
-          <div style={{ display: 'flex', alignItems: 'center', gap: '10px', marginBottom: '4px' }}>
-            <Sparkles size={16} color="var(--color-primary)" style={{ filter: 'drop-shadow(0 0 6px var(--color-primary))' }} />
-            <span style={{ fontSize: '0.75rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '2px', color: 'var(--color-primary)' }}>
-              AI Dashboard
-            </span>
-          </div>
-          <h1 style={{ fontSize: '1.7rem', fontWeight: 800, color: 'var(--text-primary)', margin: '0 0 4px 0', letterSpacing: '-0.5px' }}>
+        <div>
+          <h1 style={{ fontSize: '1.7rem', fontWeight: 700, color: 'var(--text-primary)', margin: '0 0 4px 0', letterSpacing: '-0.5px' }}>
             {greeting}, Monisha 👋
           </h1>
           <p style={{ color: 'var(--text-secondary)', fontSize: '0.9rem', margin: 0 }}>
             {time.toLocaleDateString('en-IN', { weekday: 'long', day: 'numeric', month: 'long' })} &nbsp;·&nbsp;
-            <span style={{ fontFeatureSettings: '"tnum"', letterSpacing: '0.5px' }}>
+            <span style={{ fontFeatureSettings: '"tnum"' }}>
               {time.toLocaleTimeString('en-IN', { hour: '2-digit', minute: '2-digit', second: '2-digit' })}
             </span>
           </p>
         </div>
 
-        <div style={{ display: 'flex', gap: '10px', position: 'relative', zIndex: 1, flexWrap: 'wrap' }}>
-          <button className="btn btn-primary" style={{ padding: '10px 20px', fontSize: '0.9rem', boxShadow: '0 0 20px var(--glow-primary)' }} onClick={() => navigate('/enquiries/new')}>
+        <div style={{ display: 'flex', gap: '10px', flexWrap: 'wrap' }}>
+          <button className="btn btn-primary" onClick={() => navigate('/enquiries/new')}>
             <Plus size={16} /> New Enquiry
           </button>
           <button className="btn btn-secondary" style={{ padding: '10px 16px', fontSize: '0.9rem' }} onClick={() => navigate('/reports')}>
@@ -167,8 +153,8 @@ const Dashboard = () => {
             border: card.urgent ? `1px solid color-mix(in srgb, ${card.color} 30%, transparent)` : '1px solid var(--border-subtle)',
             cursor: 'pointer', transition: 'all 0.25s ease',
           }}
-            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-4px)'; e.currentTarget.style.boxShadow = `0 16px 40px color-mix(in srgb, ${card.color} 20%, transparent)`; }}
-            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; e.currentTarget.style.boxShadow = ''; }}
+            onMouseEnter={e => { e.currentTarget.style.transform = 'translateY(-2px)'; }}
+            onMouseLeave={e => { e.currentTarget.style.transform = 'translateY(0)'; }}
           >
             <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'flex-start', marginBottom: '12px' }}>
               <div className={`stat-icon-wrapper ${card.bg}`} style={{ position: 'static', width: '40px', height: '40px' }}>
@@ -176,7 +162,7 @@ const Dashboard = () => {
               </div>
               <Sparkline data={card.spark} color={card.color} />
             </div>
-            <div style={{ fontSize: '2rem', fontWeight: 800, color: card.color, lineHeight: 1, marginBottom: '4px', filter: `drop-shadow(0 0 8px ${card.color}40)` }}>
+            <div style={{ fontSize: '2rem', fontWeight: 700, color: card.color, lineHeight: 1, marginBottom: '4px' }}>
               <AnimatedNumber value={card.value} />
             </div>
             <div style={{ fontSize: '0.78rem', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.5px', color: 'var(--text-secondary)', marginBottom: '8px' }}>
@@ -203,7 +189,7 @@ const Dashboard = () => {
               <div className="card h-100" style={{ padding: '22px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-primary)', boxShadow: '0 0 8px var(--color-primary)' }} />
+                  <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-primary)' }} />
                   <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>Enquiries by Status</span>
                 </div>
                 <span style={{ fontSize: '0.75rem', color: 'var(--color-primary)', fontWeight: 600, cursor: 'pointer' }} onClick={() => navigate('/reports')}>View all →</span>
@@ -217,14 +203,10 @@ const Dashboard = () => {
                     <div style={{ flex: 1, height: '8px', background: 'var(--surface-hover)', borderRadius: '4px', overflow: 'hidden' }}>
                       <div style={{
                         height: '100%', width: `${pct}%`,
-                        background: `linear-gradient(90deg, ${STATUS_ACCENT[status] || 'var(--color-primary)'}, ${STATUS_ACCENT[status] || 'var(--color-primary)'}80)`,
+                        background: STATUS_ACCENT[status] || 'var(--color-primary)',
                         borderRadius: '4px',
-                        boxShadow: `0 0 6px ${STATUS_ACCENT[status] || 'var(--color-primary)'}60`,
                         transition: 'width 1.2s cubic-bezier(0.4,0,0.2,1)',
-                        position: 'relative',
-                      }}>
-                        <div style={{ position: 'absolute', inset: 0, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.2), transparent)', animation: 'shimmer 2s infinite' }} />
-                      </div>
+                      }} />
                     </div>
                     <span style={{ width: '20px', textAlign: 'right', fontSize: '0.82rem', fontWeight: 700, color: STATUS_ACCENT[status] || 'var(--color-primary)' }}>{count}</span>
                   </div>
@@ -238,7 +220,7 @@ const Dashboard = () => {
               <div className="card h-100" style={{ padding: '22px' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: '18px' }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: '8px' }}>
-                  <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-accent)', boxShadow: '0 0 8px var(--color-accent)' }} />
+                  <div style={{ width: '6px', height: '20px', borderRadius: '3px', background: 'var(--color-accent)' }} />
                   <span style={{ fontWeight: 700, fontSize: '0.9rem', color: 'var(--text-primary)' }}>Leads by Source</span>
                 </div>
               </div>
@@ -253,9 +235,8 @@ const Dashboard = () => {
                     <div style={{ flex: 1, height: '8px', background: 'var(--surface-hover)', borderRadius: '4px', overflow: 'hidden' }}>
                       <div style={{
                         height: '100%', width: `${pct}%`,
-                        background: `linear-gradient(90deg, ${c}, ${c}80)`,
+                        background: c,
                         borderRadius: '4px',
-                        boxShadow: `0 0 6px ${c}60`,
                         transition: 'width 1.2s cubic-bezier(0.4,0,0.2,1)',
                       }} />
                     </div>
@@ -269,14 +250,14 @@ const Dashboard = () => {
 
           {/* AI Insights Bar */}
           <div style={{
-            background: 'linear-gradient(135deg, color-mix(in srgb, var(--color-primary) 8%, transparent), color-mix(in srgb, var(--color-accent) 8%, transparent))',
-            border: '1px solid color-mix(in srgb, var(--color-primary) 20%, transparent)',
+            background: 'var(--surface-hover)',
+            border: '1px solid var(--border-default)',
             borderRadius: '14px', padding: '16px 20px',
             display: 'flex', alignItems: 'center', gap: '16px', flexWrap: 'wrap',
           }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', color: 'var(--color-primary)', flexShrink: 0 }}>
-              <Zap size={16} style={{ filter: 'drop-shadow(0 0 6px var(--color-primary))' }} />
-              <span style={{ fontWeight: 700, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>AI Insights</span>
+              <Zap size={16} />
+              <span style={{ fontWeight: 600, fontSize: '0.8rem', textTransform: 'uppercase', letterSpacing: '1px' }}>AI Insights</span>
             </div>
             <div style={{ display: 'flex', gap: '20px', flex: 1, flexWrap: 'wrap' }}>
               {[
@@ -287,7 +268,7 @@ const Dashboard = () => {
               ].map((ins, i) => (
                 <div key={i}>
                   <div style={{ fontSize: '0.7rem', color: 'var(--text-secondary)', marginBottom: '2px' }}>{ins.label}</div>
-                  <div style={{ fontWeight: 800, fontSize: '1rem', color: ins.color, filter: `drop-shadow(0 0 6px ${ins.color}60)` }}>{ins.value}</div>
+                  <div style={{ fontWeight: 700, fontSize: '1rem', color: ins.color }}>{ins.value}</div>
                 </div>
               ))}
             </div>
@@ -417,12 +398,10 @@ const Dashboard = () => {
           {/* AI Tip Card */}
           <div style={{
             position: 'relative', overflow: 'hidden',
-            background: 'linear-gradient(135deg, var(--color-primary), var(--color-accent))',
+            background: 'var(--color-primary)',
             borderRadius: '14px', padding: '20px',
-            boxShadow: '0 8px 32px var(--glow-primary)',
+            boxShadow: 'var(--shadow-sm)',
           }}>
-            <div style={{ position: 'absolute', top: '-20px', right: '-20px', width: '100px', height: '100px', borderRadius: '50%', background: 'rgba(255,255,255,0.12)', pointerEvents: 'none' }} />
-            <div style={{ position: 'absolute', bottom: '-30px', left: '10px', width: '80px', height: '80px', borderRadius: '50%', background: 'rgba(255,255,255,0.08)', pointerEvents: 'none' }} />
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '10px' }}>
               <Sparkles size={16} color="rgba(255,255,255,0.9)" />
               <span style={{ color: 'rgba(255,255,255,0.85)', fontSize: '0.72rem', fontWeight: 700, textTransform: 'uppercase', letterSpacing: '1px' }}>AI Tip</span>
@@ -441,7 +420,7 @@ const Dashboard = () => {
           {/* Target Progress */}
           <div className="card" style={{ padding: '20px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: '8px', marginBottom: '16px' }}>
-              <Target size={15} color="var(--color-success)" style={{ filter: 'drop-shadow(0 0 4px var(--color-success))' }} />
+              <Target size={15} color="var(--color-success)" />
               <span style={{ fontSize: '0.82rem', fontWeight: 700, color: 'var(--text-primary)' }}>Monthly Target</span>
             </div>
             {[
@@ -457,7 +436,7 @@ const Dashboard = () => {
                     <span style={{ fontSize: '0.78rem', fontWeight: 700, color: t.color }}>{t.current}/{t.target}</span>
                   </div>
                   <div style={{ height: '6px', background: 'var(--surface-hover)', borderRadius: '3px', overflow: 'hidden' }}>
-                    <div style={{ height: '100%', width: `${pct}%`, background: `linear-gradient(90deg, ${t.color}, ${t.color}80)`, borderRadius: '3px', boxShadow: `0 0 6px ${t.color}60`, transition: 'width 1.2s ease' }} />
+                    <div style={{ height: '100%', width: `${pct}%`, background: t.color, borderRadius: '3px', transition: 'width 1.2s ease' }} />
                   </div>
                 </div>
               );
